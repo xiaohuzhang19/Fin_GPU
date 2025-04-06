@@ -34,8 +34,8 @@ def checkOpenCL():
         .format(device.max_compute_units))
         print(' Device - Global Memory: {0:.0f} GB'\
         .format(device.global_mem_size/ 2**30))
-#         print(' Device - Global cache: {0:.0f} KB'\
-#         .format(device.global_mem_cache_size/ 2**10))
+        # print(' Device - Global cache: {0:.0f} KB'\
+        # .format(device.global_mem_cache_size/ 2**10))
         print(' Device - Constant Memory: {0:.0f} GB'\
         .format(device.max_constant_buffer_size/ 2**30))
         print(' Device - Local Memory: {0:.0f} KB'\
@@ -46,7 +46,7 @@ def checkOpenCL():
         .format(device.max_mem_alloc_size/ 2**30))
         print(' Device - Max Work Group Size: {0:.0f}'\
         .format(device.max_work_group_size))
-#         print('\n') 
+        print('\n') 
 
 
 if __name__ == "__main__":

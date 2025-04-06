@@ -43,6 +43,7 @@ __kernel void getEuroOption(__global float *Z, float S0, float K, float r, float
         # 1. for unified Z, St shape as [nPath by nPeriod], synced and shared by PSO and Longstaff
         # 2. No concatenation of spot price
         # 3. handle index of time period, spot price at time zero (present), St from time 1 to T
+        # 4. init boundary index to maturity and exercise to last period St, as track early exercise backwards in time 
 */
 __kernel void psoAmerOption_gb(global float *St, global float *pso, global float *C_hat, 
                         global int *boundary_idx, global float *exercise,
@@ -57,7 +58,7 @@ __kernel void psoAmerOption_gb(global float *St, global float *pso, global float
     float cur_St_val = 0.0f;          // current St element value, pointer to loop thru current path at time t of St
     int St_T_idx = 0;                 // St_T id for all paths
 
-    // reset intermediate buffer for next iteration
+    // init intermediate buffer: boundary index to maturity and exercise to last period St, as track early exercise backwards in time 
     for (int path = 0; path < n_PATH; path++){         
         boundary_gid = gid + path * nParticle;        // calc shared global access id for boundary_idx & exercise
         St_T_idx = (n_PERIOD - 1) + path * n_PERIOD;  // calc St_T id for all paths

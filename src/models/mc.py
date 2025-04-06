@@ -124,9 +124,9 @@ class hybridMonteCarlo(MonteCarloBase):
         self.St_d = cl.Buffer(openCLEnv.context, cl.mem_flags.READ_ONLY | cl.mem_flags.COPY_HOST_PTR, hostbuf=self.St)
         
         # array and memory objects for Pso fitFunction costPsoAmerOption_cl()
-        # init boundary index to maturity and exercise to last period St, as track early exercise backwards in time 
-        self.boundary_idx = np.zeros(shape=(self.nPath, self.nFish), dtype=np.int32) + nPeriod
-        self.exercise = np.zeros(shape=(self.nPath, self.nFish), dtype=np.float32) + self.St[:, -1].reshape(nPath, 1)
+        # init boundary index to maturity and exercise to last period St, as track early exercise backwards in time (set in kernel code)
+        self.boundary_idx = np.zeros(shape=(self.nPath, self.nFish), dtype=np.int32) #+ nPeriod
+        self.exercise = np.zeros(shape=(self.nPath, self.nFish), dtype=np.float32) #+ self.St[:, -1].reshape(nPath, 1)
         self.boundary_idx_d = cl.Buffer(openCLEnv.context, cl.mem_flags.READ_WRITE | cl.mem_flags.COPY_HOST_PTR, hostbuf=self.boundary_idx)
         self.exercise_d = cl.Buffer(openCLEnv.context, cl.mem_flags.READ_WRITE | cl.mem_flags.COPY_HOST_PTR, hostbuf=self.exercise)
 
