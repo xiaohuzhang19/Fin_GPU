@@ -2,6 +2,7 @@ import pyopencl as cl
 
 class openCLEnv:
     # ready the PyOpenCL environment
+    assert(len(cl.get_platforms())>0)
     platform = cl.get_platforms()[0]
     device = platform.get_devices(cl.device_type.GPU)[0]
     # print('Initializing opencl context on', cl.device_type.to_string(self.device.type).rpartition(' ')[2])
