@@ -27,10 +27,7 @@ __kernel void getEuroOption(__global float *Z, float S0, float K, float r, float
         deltaSt = nudt + volsdt * z;
         deltaSt += last_tmp;
     }
-    St = exp(deltaSt + lnS0);
-
-    /* return St at maturity */
-    //out[path_id] = St;    
+    St = exp(deltaSt + lnS0); 
     
     /* return C_hat of Euro option */
     float path_C_hat = exp(-r*T) * max(0.0f, (K - St)*opt);
