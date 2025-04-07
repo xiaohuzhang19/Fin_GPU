@@ -50,7 +50,8 @@ To run the implementations, install the required dependencies:<p>
 
 ## 🧩 Usage
 Run the model for American option pricing:<p>
-```python3 src/American_option.py```
+```cd src```<p>
+```python3 American_option.py```
 
 ## 📜 Citations
 If you use this code, please cite the following papers:
