@@ -1,6 +1,8 @@
 #define n_PATH %d
 #define n_PERIOD %d
 
+/* Unified Z, St shape as [nPath by nPeriod] */
+
 __kernel void getEuroOption(__global float *Z, float S0, float K, float r, float sigma, float T, 
     char opt, __global float *out){
     
@@ -36,7 +38,7 @@ __kernel void getEuroOption(__global float *Z, float S0, float K, float r, float
 
 /* 
         # # udpated on 6 Apr. 2025 
-        # 1. for unified Z, St shape as [nPath by nPeriod], synced and shared by PSO and Longstaff
+        # 1. Unified Z, St shape as [nPath by nPeriod], synced and shared by PSO and Longstaff
         # 2. No concatenation of spot price
         # 3. handle index of time period, spot price at time zero (present), St from time 1 to T
         # 4. init boundary index to maturity and exercise to last period St, as track early exercise backwards in time 
