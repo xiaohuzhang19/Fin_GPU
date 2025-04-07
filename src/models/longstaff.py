@@ -263,10 +263,10 @@ class LSMC_OpenCL(LongStaffBase):
         
         match self.inverseType:
             case "GJ": 
-                prog = cl.Program(openCLEnv.context, open("./src/models/kernels/knl_src_pre_calc_GaussJordan.c").read()%(self.mc.nPath, self.mc.nPeriod)).build()
+                prog = cl.Program(openCLEnv.context, open("./models/kernels/knl_src_pre_calc_GaussJordan.c").read()%(self.mc.nPath, self.mc.nPeriod)).build()
                 knl_preCalcAll = cl.Kernel(prog, 'preCalcAll_GaussJordan')
             case "CA":
-                prog = cl.Program(openCLEnv.context, open('./src/models/kernels/knl_src_pre_calc_ClassicAdjoint.c').read()%(self.mc.nPath, self.mc.nPeriod)).build()
+                prog = cl.Program(openCLEnv.context, open('./models/kernels/knl_src_pre_calc_ClassicAdjoint.c').read()%(self.mc.nPath, self.mc.nPeriod)).build()
                 knl_preCalcAll = cl.Kernel(prog, 'preCalcAll_ClassicAdjoint')
 
         # kernel run
