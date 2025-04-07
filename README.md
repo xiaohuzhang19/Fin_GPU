@@ -44,30 +44,6 @@ The repository provides code implementations for evaluating American-style deriv
   - Matrix operations (transpose, inversion, multiplication) implemented in OpenCL.
 - **Performance:** GPU-optimized regression computations reduce instability while maintaining speed improvements.
 
-## 📂 Repository Structure
-📁 gpu-american-options  
-│── 📜 README.md  
-│── 📂 src/  
-│   ├── American_option.py                                        # CLI option pricing implementation  
-│   ├── American_option.ipynb                                     # Jupyter Notebook option pricing implementation 
-│   ├── 📂 models/     
-│       ├── benchmarks.py                                         # Benchmark functions  
-│       ├── longstaff.py                                          # Longstaff Schwartz functions  
-│       ├── mc.py                                                 # Monte Carlo simulation functions  
-│       ├── pso.py                                                # PSO functions  
-│       ├── utils.py                                              # OpenCL Helper functions  
-│       ├── 📂 kernels/                       
-│           ├── knl_source_pso_computeCosts.c                     # Kernel for PSO computing costs to optimize  
-│           ├── knl_source_pso_searchGrid.c                       # Kernel for PSO search grid
-│           ├── knl_src_pre_calc_ClassicAdjoint.c                 # Kernel for classic adjoint matrix inversion
-│           ├── knl_src_pre_calc_GaussJordan.c                    # Kernel for Gauss-Jordan Elimination matrix inversion  
-│
-│── 📂 design/  
-│   ├── Longstaff_Schwartz.xlsx        # LSMC analysis 
-│   ├── LSMC_memory-data-layout.xlsx   # LSMC GPU algo memory layout design
-│   ├── analysis.xlsx                  # PSO implementation  
-│   ├── psoOption_design.xlsx          # PSO GPU algo memory layout design
-
 ## 🛠 Installation
 To run the implementations, install the required dependencies:<p>
 ```pip install numpy scipy pyopencl matplotlib```
