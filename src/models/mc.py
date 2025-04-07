@@ -115,7 +115,7 @@ class hybridMonteCarlo(MonteCarloBase):
         self.nFish = nFish
         
         # prepare kernel, buffer
-        prog = cl.Program(openCLEnv.context, open("./src/models/kernels/knl_source_pso_computeCosts.c").read()%(nPath, nPeriod)).build()
+        prog = cl.Program(openCLEnv.context, open("./models/kernels/knl_source_pso_computeCosts.c").read()%(nPath, nPeriod)).build()
         self.knl_getEuroOption = cl.Kernel(prog, 'getEuroOption')
         self.knl_psoAmerOption_gb = cl.Kernel(prog, 'psoAmerOption_gb')
         
