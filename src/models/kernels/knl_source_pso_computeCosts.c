@@ -51,10 +51,10 @@ __kernel void psoAmerOption_gb(global float *St, global float *pso, global float
     int gid = get_global_id(0);            //thread id, per fish
     int nParticle = get_global_size(0);    //number of fishes
     
-    int boundary_gid;                 // define shared global access id for boundary_idx & exercise
-    float cur_fish_val = 0.0f;        // current fish element value, pointer to loop thru current fish dimension, i.e. time t for St
-    float cur_St_val = 0.0f;          // current St element value, pointer to loop thru current path at time t of St
-    int St_T_idx = 0;                 // St_T id for all paths
+    int boundary_gid;                 // shared global access id for boundary_idx & exercise
+    float cur_fish_val;               // current fish element value, pointer to loop thru current fish dimension, i.e. time t for St
+    float cur_St_val;                 // current St element value, pointer to loop thru current path at time t of St
+    int St_T_idx;                     // St_T id for all paths
 
     // init intermediate buffer: boundary index to maturity and exercise to last period St, as track early exercise backwards in time 
     for (int path = 0; path < n_PATH; path++){         
@@ -70,7 +70,7 @@ __kernel void psoAmerOption_gb(global float *St, global float *pso, global float
         //e.g. total 5 fishes, nParticle = 5; total 3 time steps, nPeriod = 3
         //gid=0: prd:[2, 1, 0] --> 0 + [2 1 0] * nParticle =  PSO global index [10, 5, 0] for fish 0
         //gid=1: prd:[2, 1, 0] --> 1 + [2 1 0] * nParticle =  PSO global index [11, 6, 1] for fish 1
-        float cur_fish_val = pso[gid + prd * nParticle];    // PSO global index & value
+        cur_fish_val = pso[gid + prd * nParticle];    // PSO global index & value
 
         //inner loop thru all St paths at current period
         //St global pointer from 0 to (nPath * nPeriod -1)
@@ -78,7 +78,7 @@ __kernel void psoAmerOption_gb(global float *St, global float *pso, global float
             //e.g. total 3 periods, nPeriod = 3
             //prd: 2  path:[0, 1, 2, 3] --> 2 + [0, 1, 2, 3] * nPeriod = St global index [2, 5, 8, 11] for period 2
             //prd: 1  path:[0, 1, 2, 3] --> 1 + [0, 1, 2, 3] * nPeriod = St global index [1, 4, 7, 10] for period 2
-            float cur_St_val = St[prd + path * n_PERIOD];    // get St path value at same period
+            cur_St_val = St[prd + path * n_PERIOD];    // get St path value at same period
             
             // each fish access to corresponding column of boundary_idx and exercise matrix, both nPath by nFish/nParticle
             // calc shared global access id for boundary_idx & exercise
