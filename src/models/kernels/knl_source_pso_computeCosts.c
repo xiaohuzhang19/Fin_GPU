@@ -22,7 +22,6 @@ __kernel void getEuroOption(__global float *Z, float S0, float K, float r, float
     for(int cur_t = 0; cur_t < n_PERIOD; cur_t++){
         last_tmp = deltaSt;      // set St to lastSt for next period calc
         /* get corresponding z */
-        //float z = Z[cur_t * n_PATH + path_id]; 
         float z = Z[cur_t + n_PERIOD * path_id];    // updated on 6 Apr. 2025 for unified Z, St shape as nPath by nPeriod
         deltaSt = nudt + volsdt * z;
         deltaSt += last_tmp;
