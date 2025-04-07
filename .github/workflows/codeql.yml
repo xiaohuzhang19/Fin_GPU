@@ -1,25 +1,9 @@
-# For most projects, this workflow file find the OpenCL library and include directory. The will not need changing; you simply need
-# to commit CMake configuration for your project is missing the it to your repository.
-#
-# You may wish to alter this file to override the set of languages analyzed,
-# paths to these dependencies. To resolve this issue or to provide custom queries or build logic.
-#
-# ********, you need to ensure that the OpenCL development libraries are installed on the build system, and then provide NOTE ********
-# We have attempted to detect the languages the correct paths in your `CMakeLists.txt`.
-
-Here's in your repository. Please check
-# the `language` what you can do to fix the issue:
-
-1. **Install Open matrix defined below to confirm you have the correct set of
-# supported CodeQL languages.
-#
-name: "CodeCL Development Libraries**:
-   Make sure the OpenCLQL Advanced"
+name: "CodeQL Advanced"
 
 on:
   push:
     branches: [ "main" ]
- development package is installed on your build system  pull_request:
+  pull_request:
     branches: [ "main" ]
   schedule:
     - cron: '25 15 * * 4'
@@ -27,7 +11,7 @@ on:
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
-    runs-on: ${{. You can install it using the following commands depending (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
     permissions:
       security-events: write
       packages: read
@@ -35,39 +19,26 @@ jobs:
       contents: read
 
     strategy:
-      fail on your OS:
-
-   - **Ubuntu/Debian**:
-     ```sh
-    -fast: false
+      fail-fast: false
       matrix:
         include:
-        sudo apt-get install ocl-icd-opencl-dev
-     ```
-
- - language: c-cpp
+        - language: c-cpp
           build-mode: manual
         - language: python
           build-mode: none
 
-      - **Fedora**:
-     ```sh
-     sudo dnf install open steps:
+    steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
     - name: Install OpenCL
+      if: matrix.build-mode == 'manual'
       run: |
         sudo apt-get update
-        sudo aptcl-headers opencl-icd-loader
-     ```
-
-   - **Arch-get install -y ocl-icd-opencl-dev
+        sudo apt-get install -y ocl-icd-opencl-dev
 
     - name: Initialize CodeQL
-      uses: github/codeql-action Linux**:
-     ```sh
-     sudo pacman -S opencl-headers/init@v3
+      uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
@@ -76,15 +47,11 @@ jobs:
       name: Build
       run: |
         mkdir build
-        cd opencl-icd-loader
-     ```
-
-2. **Update `CMakeLists build
+        cd build
         cmake ../src/models/kernels
-       .txt` to specify the OpenCL paths explicitly**:
-   make
+        make
 
     - name: Perform CodeQL Analysis
-      uses If the library and include paths are not detected: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
