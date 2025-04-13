@@ -8,7 +8,8 @@ from models.utils import checkOpenCL
 if __name__ == "__main__":
     checkOpenCL()
 
-    S0, r, sigma, T, nPath, nPeriod, K, opttype, nFish = 100.0, 0.03, 0.3, 1.0, 20000, 200, 110.0, 'P', 500
+    S0, r, sigma, T, nPath, nPeriod, K, opttype, nFish = 617.7, 0.0519, 0.120634, 30/365, 20000, 30, 622.4753, 'P', 500
+    #S0, r, sigma, T, nPath, nPeriod, K, opttype, nFish = 100.0, 0.03, 0.3, 1.0, 20000, 200, 110.0, 'P', 500
     # S0, r, sigma, T, nPath, nPeriod, K, opttype, nFish = 100.0, 0.03, 0.3, 1.0, 50000, 200, 110.0, 'P', 500
     mc = hybridMonteCarlo(S0, r, sigma, T, nPath, nPeriod, K, opttype, nFish)
     print(mc.St.shape)

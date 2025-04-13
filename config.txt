@@ -1,0 +1,19 @@
+
+============================================================
+OpenCL Platforms and Devices
+
+============================================================
+Platform - Name: Apple
+Platform - Vendor: Apple
+Platform - Version: OpenCL 1.2 (Dec 13 2024 23:09:21)
+Platform - Profile: FULL_PROFILE
+ --------------------------------------------------------
+ Device - Name: Apple M1 Pro
+ Device - Type: ALL | GPU
+ Device - Max Clock Speed: 1000 Mhz
+ Device - Compute Units: 16
+ Device - Local Memory: 32 KB
+ Device - Constant Memory: 1048576 KB
+ Device - Global Memory: 11 GB
+ Device - Max Buffer/Image Size: 2048 MB
+ Device - Max Work Group Size: 256

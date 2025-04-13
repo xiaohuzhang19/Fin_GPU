@@ -50,7 +50,6 @@ class MonteCarloBase:
             case 'P':
                 self.opt = 1
         self.dt = self.T / self.nPeriod
-
         # generate St simulation
         self.Z = self.__getZ()
         self.St = self.__getSt()
@@ -68,10 +67,13 @@ class MonteCarloBase:
         return
     
     def __getZ(self):
-        if self.__seed is np.nan:
-            rng = np.random.default_rng()  
-        else:
-            rng = np.random.default_rng(seed=self.__seed)  
+        # if self.__seed is np.nan:
+        #     rng = np.random.default_rng()  
+        # else:
+        #     rng = np.random.default_rng(seed=self.__seed)  
+        #xiaohu update Apri 9th with default seed
+        seed = type(self).__seed  # or MonteCarloBase.getSeed()
+        rng = np.random.default_rng(seed=seed)
         Z = rng.normal(size=(self.nPath, self.nPeriod)).astype(np.float32)  
         return Z
     
