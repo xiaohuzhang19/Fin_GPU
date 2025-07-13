@@ -1,25 +1,26 @@
 import os
 import pandas as pd
 import time
-from models.mc import hybridMonteCarlo
-from models.longstaff import LSMC_Numpy, LSMC_OpenCL
-import models.benchmarks as bm
-from models.pso import PSO_Numpy, PSO_OpenCL
-from models.utils import checkOpenCL
+from src.models.mc import hybridMonteCarlo
+from src.models.longstaff import LSMC_Numpy, LSMC_OpenCL
+import src.models.benchmarks as bm
+from src.models.pso import PSO_Numpy, PSO_OpenCL
+from src.models.utils import checkOpenCL
 import argparse
 
 #===config file=====
-T = 30 / 365
-nPath = 20000
-nPeriod = 30
-nFish = 10000
+
+nPath = 10000
+nPeriod = 100
+nFish = 5000
 
 def run_models_on_row(row):
-    S0 = row['close']
-    r = row['_1_MO'] / 100  # Convert % to decimal
+    T = row['days']/ 365
+    S0 = row['forward_price']
+    r = row['_3_MO'] / 100  # Convert % to decimal
     sigma = row['impl_volatility']
-    K = row['impl_strike']
-    opttype = row['cp_flag']
+    K = row['strike_price']
+    opttype = row['cp_flag'].upper()
 
     timings = {}
     
@@ -78,16 +79,21 @@ if __name__ == "__main__":
     parser.add_argument("input_file", type=str, help="Path to input CSV file")
     parser.add_argument("output_file", type=str, help="Path to output CSV file")
     args = parser.parse_args()
-    base_path = "../Data"
+    # Construct full paths
+    # Get the directory where the script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Construct the base path to the 'Data' directory
+    base_path = os.path.join(script_dir, 'Data')
+
     # Construct full paths
     input_path = args.input_file if os.path.isabs(args.input_file) else os.path.join(base_path, args.input_file)
     output_path = args.output_file if os.path.isabs(args.output_file) else os.path.join(base_path, args.output_file)
     checkOpenCL()
     
     columns_to_keep = [
-    'secid', 'date', 'cp_flag', 'days', 'delta',
-    'impl_volatility', 'impl_strike', 'impl_premium', 'dispersion',
-    '_1_MO', '_2_MO', '_3_MO', '_6_MO','close'
+    'secid', 'date', 'cp_flag', 'days', 
+    'impl_volatility', 'strike_price', 'premium',
+     '_3_MO', 'forward_price'
     ]   
     # Load and filter input data
     df = pd.read_csv(input_path)
